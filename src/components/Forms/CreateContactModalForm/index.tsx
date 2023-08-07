@@ -6,32 +6,30 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useContext } from "react";
 import { UserContext } from "../../../providers/UserContext";
-import { EditUserFormSchema } from "./EditUserFormSchema";
+import { CreateContactFormSchema } from "./CreateContactSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { StyledForm } from "../../../styles/form";
 import Input from "../Input";
 import { StyledButton } from "../../../styles/button";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { ConfirmToast } from "react-confirm-toast";
 
-interface IEditUserFormDialogProps {
+interface IContactFormDialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface IEditUserForm {
+export interface IContactForm {
   name: string;
   email: string;
-  username: string;
   phone: string;
 }
 
 export default function CreateContactFormDialog({
   open,
   setOpen,
-}: IEditUserFormDialogProps) {
-  const { editUser, loading, deleteUser } = useContext(UserContext);
+}: IContactFormDialogProps) {
+  const { createContact, loading } = useContext(UserContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,9 +43,9 @@ export default function CreateContactFormDialog({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IEditUserForm>({
+  } = useForm<IContactForm>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: yupResolver(EditUserFormSchema as any),
+    resolver: yupResolver(CreateContactFormSchema as any),
   });
 
   return (
@@ -56,10 +54,9 @@ export default function CreateContactFormDialog({
         Cadastre um novo contato
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Editar dados do cliente</DialogTitle>
-        <h5>Preencha somente os campos que deseja alterar</h5>
+        <DialogTitle>Cadastre seu novo contato</DialogTitle>
         <DialogContent>
-          <StyledForm onSubmit={handleSubmit(editUser)}>
+          <StyledForm onSubmit={handleSubmit(createContact)}>
             <Input
               type="text"
               error={errors.name}
@@ -81,13 +78,6 @@ export default function CreateContactFormDialog({
               label="Telefone para contato"
             />
 
-            <Input
-              type="text"
-              error={errors.username}
-              register={register("username")}
-              label="Nome de usuario"
-            />
-
             <StyledButton
               type="submit"
               $buttonSize="large"
@@ -102,21 +92,7 @@ export default function CreateContactFormDialog({
           </StyledForm>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          {/* <Button onClick={deleteUser}>Excluir Conta</Button> */}
-          <ConfirmToast
-            asModal={true}
-            childrenClassName="margin-top-10"
-            customCancel="Cancelar"
-            customConfirm="Confirmar"
-            customFunction={deleteUser}
-            message="ATENÇÃO! Esta ação é irreversível, todos os dados do usuário e contatos associados serão excluídos permanentemente. Tem certeza que deseja prosseguir? "
-            position="top-right" //will be ignored cause asModal=true
-            showCloseIcon={false}
-            theme="light"
-          >
-            <Button>Excluir Conta</Button>
-          </ConfirmToast>
+          <Button onClick={handleClose}>Cancelar</Button>          
         </DialogActions>
       </Dialog>
     </div>

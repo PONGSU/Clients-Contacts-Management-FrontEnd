@@ -6,11 +6,14 @@ import jwtDecode from 'jwt-decode';
 import { ILoginFormValue, IUser, IUserContext, IUserProviderProps } from './type';
 import { api } from '../../services/api';
 import { IRegisterForm } from '../../components/Forms/RegisterForm';
+import { IContactForm } from '../../components/Forms/CreateContactModalForm';
 
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null);
+  const [contactId, setContactId] = useState<number | string | null>(null);
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -92,6 +95,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     
   };
 
+  
   const loginUser = async (formData: ILoginFormValue) => {
     setLoading(true); 
     try {
@@ -128,29 +132,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     navigate('/');
   };
 
-  const deleteUser = async () => {    
-    const userId = localStorage.getItem('user_id'); null;
-    const token = localStorage.getItem('accessTOKEN');
-
-    try {
-      await api.delete(`/users/${userId}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      toast.success('Conta deletada com sucesso!');
-      setTimeout(() => {
-        logoutUser();       
-      }, 1250);
-      // setUser(response.data.user);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {      
-      console.error(error);      
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  
   const editUser = async (data: Partial<IUser>) => {
     setLoading(true);
     const userId = localStorage.getItem('user_id'); null;
@@ -185,6 +167,117 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
+  const deleteUser = async () => {    
+    const userId = localStorage.getItem('user_id'); null;
+    const token = localStorage.getItem('accessTOKEN');
+
+    try {
+      await api.delete(`/users/${userId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success('Conta deletada com sucesso!');
+      setTimeout(() => {
+        logoutUser();       
+      }, 1250);
+      // setUser(response.data.user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {      
+      console.error(error);      
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createContact = async (data: IContactForm) => {
+    setLoading(true);    
+    const token = localStorage.getItem('accessTOKEN');
+    const newData = {
+      email: data.email,
+      name: data.name,
+      phone: data.phone,
+    };
+
+      try {
+        const res = await api.post('contacts/register/', newData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res);        
+        toast.success('Contato cadastrado com sucesso!');
+        setTimeout(() => {
+          location.reload();       
+       }, 750);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.log(error.response.data.username);        
+        if (error?.response?.data?.username == 'This username already exists.') {
+          toast.error('Nome de usuário já cadastrado!');
+        } else {
+          console.error(error);
+          toast.error('Ops,algo deu errado!');
+        }
+      } finally {
+        setLoading(false);
+      }
+    
+  };
+
+  const editContact = async (data: Partial<IContactForm>) => {
+    setLoading(true);
+    const token = localStorage.getItem('accessTOKEN');
+    const cleanData = Object.entries(data).reduce((acc, [key, value]) => {
+      if (value !== null && value !== "") {
+          acc[key] = value;
+      }
+      return acc;
+  }, {});
+
+    try {
+      await api.patch(`/contacts/${contactId}/`, cleanData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success('Alteração feita com sucesso!');
+      setTimeout(() => {
+         location.reload();       
+      }, 1250);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response.data.error == 'Email already exists.') {
+        toast.error('Este email já está cadastrado em nosso banco de dados')
+      } else {
+        console.error(error);      
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteContact = async () => {    
+    const token = localStorage.getItem('accessTOKEN');
+
+    try {
+      await api.delete(`/contacts/${contactId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success('Contato deletada com sucesso!');
+      setTimeout(() => {
+        location.reload();     
+      }, 1250);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {      
+      console.error(error);      
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <UserContext.Provider
@@ -197,7 +290,12 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
           editUser,
           loading,
           setLoading,
-          deleteUser
+          deleteUser,
+          createContact,
+          editContact,
+          deleteContact,
+          contactId,
+          setContactId,
         }}
       >
         {children}

@@ -1,3 +1,4 @@
+import { IContactForm } from '../../components/Forms/CreateContactModalForm';
 import { IRegisterForm } from '../../components/Forms/RegisterForm';
 
 export interface IUserProviderProps {
@@ -14,6 +15,11 @@ export interface IUserContext {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   deleteUser: () => Promise<void>;
+  createContact: (data: IContactForm) => void;
+  editContact: (data: Partial<IContactForm>) => void;
+  deleteContact: () => Promise<void>;
+  contactId: null | number | string;
+  setContactId: React.Dispatch<React.SetStateAction<null | number | string>>;
 }
 
 export interface IUser {

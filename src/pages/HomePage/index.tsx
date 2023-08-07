@@ -3,12 +3,14 @@ import { UserContext } from "../../providers/UserContext";
 import EditUserFormDialog from "../../components/Forms/EditUserModalForm";
 import { Button } from "@mui/material";
 import CreateContactFormDialog from "../../components/Forms/CreateContactModalForm";
+import EditContactFormDialog from "../../components/Forms/EditContactModalForm";
 
 const HomePage = () => {
   const { logoutUser, user } = useContext(UserContext);
 
   const [openUserEdit, setOpenUserEdit] = useState(false);
   const [openContactCreate, setOpenContactCreate] = useState(false);
+  const [openContactEdit, setOpenContactEdit] = useState(false);
   // const [openUserEdit, setOpenUserEdit] = useState(false);
 
 
@@ -25,11 +27,12 @@ const HomePage = () => {
         <h4></h4>
       </div>
 
-      <CreateContactFormDialog open={openUserEdit} setOpen={setOpenUserEdit}/>
+      <CreateContactFormDialog open={openContactCreate} setOpen={setOpenContactCreate}/>
       <h2>Contatos Cadastrados:</h2>
       <ul>
         {user?.contacts && user?.contacts.map(contact =>{
           return <li key={contact.id}>
+            <EditContactFormDialog open={openContactEdit} setOpen={setOpenContactEdit} contactId={contact.id} />
             <h4>Nome: {contact.name}</h4>
             <h4>Telefone: {contact.phone}</h4>
             <h4>Email: {contact.email}</h4>

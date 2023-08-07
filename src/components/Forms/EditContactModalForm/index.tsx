@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useContext } from "react";
 import { UserContext } from "../../../providers/UserContext";
-import { EditUserFormSchema } from "./EditUserFormSchema";
+import { EditContactFormSchema } from "./EditContactFormSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { StyledForm } from "../../../styles/form";
@@ -15,26 +15,28 @@ import { StyledButton } from "../../../styles/button";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { ConfirmToast } from "react-confirm-toast";
 
-interface IEditUserFormDialogProps {
+interface IEditContactFormDialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  contactId: string | number;
 }
 
-export interface IEditUserForm {
+export interface IEditContactForm {
   name: string;
   email: string;
-  username: string;
   phone: string;
 }
 
-export default function EditUserFormDialog({
+export default function EditContactFormDialog({
   open,
   setOpen,
-}: IEditUserFormDialogProps) {
-  const { editUser, loading, deleteUser } = useContext(UserContext);
+  contactId
+}: IEditContactFormDialogProps) {
+  const { editContact, loading, deleteContact, setContactId } = useContext(UserContext);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setContactId(contactId)
+    setOpen(true);    
   };
 
   const handleClose = () => {
@@ -45,9 +47,9 @@ export default function EditUserFormDialog({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IEditUserForm>({
+  } = useForm<IEditContactForm>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: yupResolver(EditUserFormSchema as any),
+    resolver: yupResolver(EditContactFormSchema as any),
   });
 
   return (
@@ -56,10 +58,10 @@ export default function EditUserFormDialog({
         Editar
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Editar dados do cliente</DialogTitle>
+        <DialogTitle>Editar dados do Contato</DialogTitle>
         <h5>Preencha somente os campos que deseja alterar</h5>
         <DialogContent>
-          <StyledForm onSubmit={handleSubmit(editUser)}>
+          <StyledForm onSubmit={handleSubmit(editContact)}>
             <Input
               type="text"
               error={errors.name}
@@ -81,13 +83,7 @@ export default function EditUserFormDialog({
               label="Telefone para contato"
             />
 
-            <Input
-              type="text"
-              error={errors.username}
-              register={register("username")}
-              label="Nome de usuario"
-            />
-
+           
             <StyledButton
               type="submit"
               $buttonSize="large"
@@ -108,12 +104,12 @@ export default function EditUserFormDialog({
             childrenClassName="margin-top-10"
             customCancel="Cancelar"
             customConfirm="Confirmar"
-            customFunction={deleteUser}
-            message="ATENÇÃO! Esta ação é irreversível, todos os dados do usuário e contatos associados serão excluídos permanentemente. Tem certeza que deseja prosseguir? "
+            customFunction={deleteContact}
+            message="ATENÇÃO! Esta ação é irreversível, todos os dados do contato serão excluídos permanentemente. Tem certeza que deseja prosseguir? "
             showCloseIcon={false}
             theme="light"
           >
-            <Button>Excluir Conta</Button>
+            <Button>Excluir Contato</Button>
           </ConfirmToast>
         </DialogActions>
       </Dialog>
