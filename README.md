@@ -1,27 +1,18 @@
-# React + TypeScript + Vite
+Está aplicação depende da API https://github.com/PONGSU/Clients-Contacts-Management-Backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ao fazer a cópia do repositório é preciso instalar as bibliotecas necessarias utilizando o comanodo:
+yarn install
 
-Currently, two official plugins are available:
+após isso para rodar o servidor localmente execute:
+yarn dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+ATENÇÂO:
+Caso o endereço do servidor da API local NÂO SEJA: "127.0.0.1:8000", será preciso alterar a variavel baseURL em src/services/api.ts
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Se mesmo assim aparecer algum erro, verifique qual endereço esta rodando o servidor do front end após o comando yarn dev.
+Se esse endereço NÃO for http://localhost:5173. Sera preciso acessar o arquivo clients_contacts/settings.py, e alterar o endereço na linha 78:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+ CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
