@@ -1,17 +1,17 @@
-import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 // import { TextField } from '@mui/material';
-import { CgSpinnerTwo } from 'react-icons/cg';
-import { Link } from 'react-router-dom';
+import { CgSpinnerTwo } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
-import Input from '../Input';
-import { StyledButton } from '../../../styles/button';
-import { StyledForm } from '../../../styles/form';
-import { RegisterFormSchema } from './RegisterFormSchema';
-import { UserContext } from '../../../providers/UserContext';
-import { StyledParagraph } from '../../../styles/typograthy';
-import { DialogTitle } from '@mui/material';
+import Input from "../Input";
+import { StyledButton } from "../../../styles/button";
+import { StyledForm } from "../../../styles/form";
+import { RegisterFormSchema } from "./RegisterFormSchema";
+import { UserContext } from "../../../providers/UserContext";
+import { StyledParagraph } from "../../../styles/typograthy";
+import { DialogTitle } from "@mui/material";
 
 export interface IRegisterForm {
   name: string;
@@ -34,62 +34,60 @@ const RegisterForm = () => {
     resolver: yupResolver(RegisterFormSchema as any),
   });
 
-  
-
   return (
     <StyledForm onSubmit={handleSubmit(createUser)}>
-      <DialogTitle className='form-title'>Crie sua conta para acessar a plataforma</DialogTitle>
+      <DialogTitle className="form-title">
+        Crie sua conta para acessar a plataforma
+      </DialogTitle>
       <Input
-        type='text'
+        type="text"
         error={errors.name}
-        register={register('name')}
-        label='Nome'
+        register={register("name")}
+        label="Nome"
       />
 
       <Input
-        type='email'
+        type="email"
         error={errors.email}
-        register={register('email')}
-        label='Email'
+        register={register("email")}
+        label="Email"
       />
 
-      
       <Input
-        type='text'
+        type="text"
         error={errors.phone}
-        register={register('phone')}
-        label='Telefone para contato'
+        register={register("phone")}
+        label="Telefone para contato"
       />
 
       <Input
-        type='text'
+        type="text"
         error={errors.username}
-        register={register('username')}
-        label='Nome de usuario'
+        register={register("username")}
+        label="Nome de usuario"
       />
 
       <Input
-        type='password'
+        type="password"
         error={errors.password}
-        register={register('password')}
-        label='Senha'
+        register={register("password")}
+        label="Senha"
       />
       <Input
-        type='password'
+        type="password"
         error={errors.confirmPassword}
-        register={register('confirmPassword')}
-        label='Confirmar Senha'
+        register={register("confirmPassword")}
+        label="Confirmar Senha"
       />
-      
 
-      <Link className='linkToLogin' to={'/login'}>
-        <StyledParagraph className='link' $fontColor='greyBold'>
+      <Link className="linkToLogin" to={"/login"}>
+        <StyledParagraph className="link" $fontColor="greyBold">
           Já tem uma conta? Clique aqui
         </StyledParagraph>
       </Link>
 
-      <StyledButton type='submit' $buttonSize='large' $buttonStyle='primary'>
-        {loading ? <CgSpinnerTwo className='spinner' /> : 'Criar Conta'}
+      <StyledButton type="submit" $buttonSize="large" $buttonStyle="primary">
+        {loading ? <CgSpinnerTwo className="spinner" /> : "Criar Conta"}
       </StyledButton>
     </StyledForm>
   );

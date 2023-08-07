@@ -27,10 +27,9 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     const userID = localStorage.getItem("user_id");
     if (token && userID) {
       try {
-        const res = await api.get(`/users/${userID}`, {
+        await api.get(`/users/${userID}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(res.data);
 
         return navigate("/home");
       } catch (error) {
@@ -79,13 +78,11 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     };
 
     try {
-      const res = await api.post("/users/", newData);
-      console.log(res);
+      await api.post("/users/", newData);
       toast.success("Cadastro realizado com sucesso!");
       navigate("/");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error.response.data.username);
       if (error?.response?.data?.username == "This username already exists.") {
         toast.error("Nome de usuário já cadastrado!");
       } else {
@@ -202,19 +199,18 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     };
 
     try {
-      const res = await api.post("contacts/register/", newData, {
+      await api.post("contacts/register/", newData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
       toast.success("Contato cadastrado com sucesso!");
       setTimeout(() => {
         location.reload();
       }, 750);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error.response.data.username);
+      console.error(error.response.data.username);
       if (error?.response?.data?.username == "This username already exists.") {
         toast.error("Nome de usuário já cadastrado!");
       } else {

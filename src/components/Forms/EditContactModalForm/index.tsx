@@ -31,13 +31,14 @@ export interface IEditContactForm {
 export default function EditContactFormDialog({
   open,
   setOpen,
-  contactId
+  contactId,
 }: IEditContactFormDialogProps) {
-  const { editContact, loading, deleteContact, setContactId } = useContext(UserContext);
+  const { editContact, loading, deleteContact, setContactId } =
+    useContext(UserContext);
 
   const handleClickOpen = () => {
-    setContactId(contactId)
-    setOpen(true);    
+    setContactId(contactId);
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -55,12 +56,19 @@ export default function EditContactFormDialog({
 
   return (
     <div>
-      <Button variant="text" color="inherit" size="small" onClick={handleClickOpen}>
+      <Button
+        variant="text"
+        color="inherit"
+        size="small"
+        onClick={handleClickOpen}
+      >
         Editar
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Editar dados do Contato</DialogTitle>
-        <DialogContentText className="form-subtitle">Preencha somente os campos que deseja alterar</DialogContentText>
+        <DialogContentText className="form-subtitle">
+          Preencha somente os campos que deseja alterar
+        </DialogContentText>
         <DialogContent>
           <StyledForm onSubmit={handleSubmit(editContact)}>
             <Input
@@ -84,7 +92,6 @@ export default function EditContactFormDialog({
               label="Telefone para contato"
             />
 
-           
             <StyledButton
               type="submit"
               $buttonSize="large"

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledLoginPage = styled.main`
   display: flex;
@@ -8,9 +8,11 @@ export const StyledLoginPage = styled.main`
   margin: 0 auto;
   height: 100vh;
 
-  img{
+  img {
     max-width: 170px;
     margin-bottom: -50px;
+    user-select: none;
+    pointer-events: none;
   }
 
   .image-section {

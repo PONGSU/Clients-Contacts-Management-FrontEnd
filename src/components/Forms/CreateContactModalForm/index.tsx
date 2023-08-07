@@ -50,7 +50,12 @@ export default function CreateContactFormDialog({
 
   return (
     <div>
-      <Button className="btn-create-ctt" color="inherit" variant="outlined" onClick={handleClickOpen}>
+      <Button
+        className="btn-create-ctt"
+        color="inherit"
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
         Cadastre um novo contato
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -92,7 +97,7 @@ export default function CreateContactFormDialog({
           </StyledForm>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>          
+          <Button onClick={handleClose}>Cancelar</Button>
         </DialogActions>
       </Dialog>
     </div>

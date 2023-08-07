@@ -13,7 +13,6 @@ const HomePage = () => {
   const [openUserEdit, setOpenUserEdit] = useState(false);
   const [openContactCreate, setOpenContactCreate] = useState(false);
   const [openContactEdit, setOpenContactEdit] = useState(false);
-  // const [openUserEdit, setOpenUserEdit] = useState(false);
 
   return (
     <StyledHomePage>

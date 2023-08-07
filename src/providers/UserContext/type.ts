@@ -1,5 +1,5 @@
-import { IContactForm } from '../../components/Forms/CreateContactModalForm';
-import { IRegisterForm } from '../../components/Forms/RegisterForm';
+import { IContactForm } from "../../components/Forms/CreateContactModalForm";
+import { IRegisterForm } from "../../components/Forms/RegisterForm";
 
 export interface IUserProviderProps {
   children: React.ReactNode;

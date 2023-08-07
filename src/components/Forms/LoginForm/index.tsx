@@ -34,7 +34,7 @@ const LoginForm = () => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(submit)}>
+    <StyledForm className="login-form" onSubmit={handleSubmit(submit)}>
       <DialogTitle className="form-title">Faça o Login</DialogTitle>
       <Input
         label="Usuario"

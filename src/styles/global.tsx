@@ -38,11 +38,21 @@ export const GlobalStyle = createGlobalStyle`
     display: unset;
     position: unset;
   }
+  
+  .form-title{
+    display: flex;
+    word-break: normal;
+    color: ${({ theme }) => theme.colors.grey300};
+    padding: 7px;
+    margin-bottom: 13px;
+  }
 
   .form-subtitle{
     display: flex;
     align-self: center;
     word-break: normal;
+    
+    padding: 13px;
     max-width: 80%;
   }
 
@@ -50,6 +60,15 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: underline;
   }  
+  .MuiDialogContent-root{
+    display: flex;
+    overflow-x: hidden;
+    height: max-content;
+    form{
+      height: max-content;
+
+    }
+  }
 `;
 
 export const Container = styled.div`
