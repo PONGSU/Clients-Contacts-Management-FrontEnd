@@ -1,0 +1,168 @@
+import { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
+
+import { ILoginFormValue, IUser, IUserContext, IUserProviderProps } from './type';
+import { api } from '../../services/api';
+import { IRegisterForm } from '../../components/Forms/RegisterForm';
+
+export const UserContext = createContext({} as IUserContext);
+
+export const UserProvider = ({ children }: IUserProviderProps) => {
+  const [user, setUser] = useState<IUser | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const userLoad = async () => {
+    const token = localStorage.getItem('accessTOKEN');
+    const userID = localStorage.getItem('user_id');
+    if (token && userID) {
+      try {
+        const res = await api.get(`/users/${userID}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(res.data);
+
+        return navigate('/home');
+      } catch (error) {
+        localStorage.clear()
+        return navigate('/');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessTOKEN');
+    const userID = localStorage.getItem('user_id');
+    if (token && userID) {
+      const userAutoLogin = async () => {
+        try {
+          const res = await api.get(`/users/${userID}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUser(res.data)
+          if (
+            window.location.pathname != '/home'
+          ) {
+            navigate('/home');
+          }
+        } catch (error) {
+          window.localStorage.clear();
+          setUser(null);
+          toast.error(
+            'Não encontramos uma sessão ativa, por favor faça o login para acessar'
+          );
+          if (window.location.pathname != '/register') {
+            navigate('/login');
+          }
+        }
+      };
+      userAutoLogin();
+    }
+  }, []);  
+
+  const createUser = async (data: IRegisterForm) => {
+    setLoading(true);
+    const newData = {
+      email: data.email,
+      name: data.name,
+      username: data.username,
+      phone: data.phone,
+      password: data.password,
+    };
+
+      try {
+        const res = await api.post('/users/', newData);
+        console.log(res);        
+        toast.success('Cadastro realizado com sucesso!');
+        navigate('/');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.log(error.response.data.username);        
+        if (error?.response?.data?.username == 'This username already exists.') {
+          toast.error('Nome de usuário já cadastrado!');
+        } else {
+          console.error(error);
+          toast.error('Ops,algo deu errado!');
+        }
+      } finally {
+        setLoading(false);
+      }
+    
+  };
+
+  const loginUser = async (formData: ILoginFormValue) => {
+    setLoading(true); 
+    try {
+      const res = await api.post('/users/login/', formData);
+      localStorage.setItem('accessTOKEN', res.data.access);
+      const decodedToken = jwtDecode(res.data.access) as { user_id: number }
+      if (decodedToken) {
+        const userId = decodedToken.user_id;
+        localStorage.setItem('user_id', userId.toString());
+      }
+      toast.success('Login bem sucedido');
+
+      navigate('/home');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // eslint-disable-next-line no-constant-condition
+      if (error.response.data === 'Incorrect password' || 'Cannot find user') {
+        toast.error('Email e/ou senha incorretos');
+      } else {
+        console.error(error);
+        toast.error('Algo deu errado :(');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logoutUser = () => {
+    setUser(null);
+    localStorage.clear()
+    toast.info('Sessão encerrada');
+    navigate('/');
+  };
+
+  const editUser = async (data: IUser) => {
+    setLoading(true);
+    const userId = localStorage.getItem('user_id'); null;
+    const token = localStorage.getItem('accessTOKEN');
+
+    try {
+      const response = await api.patch(`/users/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data.user);
+      userLoad();
+      toast.success('Alteração feita com sucesso!');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <UserContext.Provider
+        value={{
+          user,
+          userLoad,
+          createUser,
+          loginUser,
+          logoutUser,
+          editUser,
+          loading,
+          setLoading,
+        }}
+      >
+        {children}
+      </UserContext.Provider>
+    </>
+  );
+};
