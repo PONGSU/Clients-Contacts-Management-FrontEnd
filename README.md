@@ -19,10 +19,10 @@ yarn dev
 
 
 ATENÇÂO:
-Caso o endereço do servidor da API local NÂO SEJA: "127.0.0.1:8000", será preciso alterar a variavel baseURL em src/services/api.ts
+Caso decida rodar localmente provavelmente não sera possivel interagir com o banco de dados e API que estão online, então será preciso rodar o back end localmente também. Por isso será preciso também alterar a variavel baseURL em src/services/api.ts, substituindo pela URL obtida apos o comando "runserver" descrito nas instruções de como rodar a API.
 
-Se mesmo assim aparecer algum erro, verifique qual endereço esta rodando o servidor do front end após o comando yarn dev.
-Se esse endereço NÃO for http://localhost:5173. Sera preciso acessar o arquivo clients_contacts/settings.py no repositório da API, e alterar o endereço na linha 78:
+Se mesmo assim aparecer algum erro, verifique qual endereço esta rodando o servidor desta aplicação front end, que é exibido no terminal em resposta ao comando yarn dev.
+Se esse endereço NÃO for http://localhost:5173. Sera preciso acessar o arquivo clients_contacts/settings.py no repositório da API, e alterar o endereço na linha 78, para o endereço obtido nesta aplicação Front End:
 
  CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
