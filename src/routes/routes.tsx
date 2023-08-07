@@ -10,14 +10,7 @@ import HomePage from '../pages/HomePage';
 const Router = () => {
   return (
     <Routes>
-      <Route
-        path='/*'
-        element={          
-          <UserProvider>
-              <LoginPage />
-          </UserProvider>
-        }
-      />
+      
       <Route
         path='/register'
         element={          
@@ -30,57 +23,21 @@ const Router = () => {
         path='/home'
         element={
           <UserProvider>
-                <ProtectedRoute />
+                <ProtectedRoute></ProtectedRoute>
           </UserProvider>
         }
       >
         <Route path='/home' element={<HomePage />} />
       </Route>
-      {/* <Route
-        path='/house'
-        element={
+      <Route
+        path='/*'
+        element={          
           <UserProvider>
-            <HousesProvider>
-              <ModalsProvider>
-                <HousePage />
-              </ModalsProvider>
-            </HousesProvider>
+              <LoginPage />
           </UserProvider>
         }
       />
-      <Route
-        path='/login'
-        element={
-          <UserProvider>
-            <LoginPage />
-          </UserProvider>
-        }
-      />
-      <Route
-        path='/register'
-        element={
-          <UserProvider>
-            <RegisterPage />
-          </UserProvider>
-        }
-      />
-
-      <Route
-        path='/dashboard'
-        element={
-          <UserProvider>
-            <HousesProvider>
-              <ModalsProvider>
-                <ProtectedRoute />
-              </ModalsProvider>
-            </HousesProvider>
-          </UserProvider>
-        }
-      >
-        <Route path='/dashboard' element={<DashboardPage />} />
-      </Route>
-
-      <Route path='/*' element={<ErrorPage />} /> */}
+      
     </Routes>
   );
 };

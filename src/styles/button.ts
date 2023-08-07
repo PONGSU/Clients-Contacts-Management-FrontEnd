@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 interface IStyledButtonProps {
@@ -90,6 +89,3 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   ${StyledButtonCSS}
 `;
 
-export const StyledButtonLink = styled(Link)`
-  ${StyledButtonCSS}
-`;
