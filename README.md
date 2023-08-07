@@ -1,6 +1,6 @@
 Está aplicação depende da API https://github.com/PONGSU/Clients-Contacts-Management-Backend
 
-Ao fazer a cópia do repositório é preciso instalar as bibliotecas necessarias utilizando o comanodo:
+Depois de fazer a cópia desse repositório é preciso instalar as bibliotecas necessarias utilizando o comanodo:
 yarn install
 
 após isso para rodar o servidor localmente execute:
