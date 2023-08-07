@@ -10,9 +10,10 @@ export interface IUserContext {
   loginUser: (formData: ILoginFormValue) => Promise<void>;
   logoutUser: () => void;
   user: IUser | null;
-  editUser: (data: IUser) => Promise<void>;
+  editUser: (data: Partial<IUser>) => Promise<void>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteUser: () => Promise<void>;
 }
 
 export interface IUser {
@@ -23,9 +24,8 @@ export interface IUser {
   is_admin?: boolean;
   date_joined?: string | Date;
   username?: string;
-  contacts?: IContact[];
+  contacts: IContact[];
 }
-
 
 export interface IContact {
   id: number;

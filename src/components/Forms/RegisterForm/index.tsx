@@ -37,6 +37,7 @@ const RegisterForm = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(createUser)}>
+      <h1>Crie sua conta para acessar a plataforma</h1>
       <Input
         type='text'
         error={errors.name}
@@ -81,7 +82,7 @@ const RegisterForm = () => {
       
 
       <Link className='linkToLogin' to={'/login'}>
-        <StyledParagraph  $fontColor='grey'>
+        <StyledParagraph  $fontColor='greyBold'>
           Já tem uma conta? Clique aqui
         </StyledParagraph>
       </Link>

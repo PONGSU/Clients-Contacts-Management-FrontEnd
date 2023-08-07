@@ -103,8 +103,10 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         localStorage.setItem('user_id', userId.toString());
       }
       toast.success('Login bem sucedido');
-
       navigate('/home');
+      setTimeout(() => {
+        location.reload();       
+     }, 750);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // eslint-disable-next-line no-constant-condition
@@ -126,22 +128,58 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     navigate('/');
   };
 
-  const editUser = async (data: IUser) => {
-    setLoading(true);
+  const deleteUser = async () => {    
     const userId = localStorage.getItem('user_id'); null;
     const token = localStorage.getItem('accessTOKEN');
 
     try {
-      const response = await api.patch(`/users/${userId}`, data, {
+      await api.delete(`/users/${userId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUser(response.data.user);
-      userLoad();
+      toast.success('Conta deletada com sucesso!');
+      setTimeout(() => {
+        logoutUser();       
+      }, 1250);
+      // setUser(response.data.user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {      
+      console.error(error);      
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const editUser = async (data: Partial<IUser>) => {
+    setLoading(true);
+    const userId = localStorage.getItem('user_id'); null;
+    const token = localStorage.getItem('accessTOKEN');
+    const cleanData = Object.entries(data).reduce((acc, [key, value]) => {
+      if (value !== null && value !== "") {
+          acc[key] = value;
+      }
+      return acc;
+  }, {});
+
+    try {
+      await api.patch(`/users/${userId}/`, cleanData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success('Alteração feita com sucesso!');
-    } catch (error) {
-      console.error(error);
+      setTimeout(() => {
+         location.reload();       
+      }, 1250);
+      // setUser(response.data.user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response.data.error == 'Email already exists.') {
+        toast.error('Este email já está cadastrado em nosso banco de dados')
+      } else {
+        console.error(error);      
+      }
     } finally {
       setLoading(false);
     }
@@ -159,6 +197,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
           editUser,
           loading,
           setLoading,
+          deleteUser
         }}
       >
         {children}

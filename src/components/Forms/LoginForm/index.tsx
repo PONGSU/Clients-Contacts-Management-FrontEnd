@@ -4,15 +4,19 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { CgSpinnerTwo } from "react-icons/cg";
 
 import { UserContext } from "../../../providers/UserContext";
-import { StyledButton, StyledButtonLink } from "../../../styles/button";
+import { StyledButton } from "../../../styles/button";
 import { StyledForm } from "../../../styles/form";
 import { StyledParagraph } from "../../../styles/typograthy";
 import Input from "../Input";
 import { LoginFormSchema } from "./LoginFormSchema";
 import { ILoginFormValue } from "./types";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { loginUser, loading } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -53,13 +57,13 @@ const LoginForm = () => {
         Ainda não tem uma conta?
       </StyledParagraph>
 
-      <StyledButtonLink
-        to="/register"
-        // $buttonSize='large'
-        // $buttonStyle='default'
+      <Button
+        onClick={() => {
+          navigate("/register");
+        }}
       >
         Cadastre-se
-      </StyledButtonLink>
+      </Button>
     </StyledForm>
   );
 };

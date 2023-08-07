@@ -27,7 +27,7 @@ export interface IEditUserForm {
   phone: string;
 }
 
-export default function EditUserFormDialog({
+export default function CreateContactFormDialog({
   open,
   setOpen,
 }: IEditUserFormDialogProps) {
@@ -53,7 +53,7 @@ export default function EditUserFormDialog({
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Editar
+        Cadastre um novo contato
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Editar dados do cliente</DialogTitle>
