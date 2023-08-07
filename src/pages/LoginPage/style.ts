@@ -2,10 +2,16 @@ import styled from 'styled-components';
 
 export const StyledLoginPage = styled.main`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
   height: 100vh;
+
+  img{
+    max-width: 170px;
+    margin-bottom: -50px;
+  }
 
   .image-section {
     width: 50%;

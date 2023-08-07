@@ -2,7 +2,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body {    
-    background-color: ${({ theme }) => theme.colors.grey300};
+    background-color: ${({ theme }) => theme.colors.grey400};
+    font-family: ${({ theme }) => theme.fonts.primary};
   }
 
   ::-webkit-scrollbar{
@@ -37,6 +38,18 @@ export const GlobalStyle = createGlobalStyle`
     display: unset;
     position: unset;
   }
+
+  .form-subtitle{
+    display: flex;
+    align-self: center;
+    word-break: normal;
+    max-width: 80%;
+  }
+
+  .link:hover{
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration: underline;
+  }  
 `;
 
 export const Container = styled.div`

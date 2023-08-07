@@ -1,11 +1,12 @@
-import LoginForm from "../../components/Forms/LoginForm"
+import LoginForm from "../../components/Forms/LoginForm";
 import { StyledLoginPage } from "./style";
+import logo from "../../assets/TransparentLogo.png";
 
 const LoginPage = () => {
-
   return (
     <StyledLoginPage>
-      <LoginForm/>
+      <img src={logo} alt="Logo image for the brand" />
+      <LoginForm />
     </StyledLoginPage>
   );
 };

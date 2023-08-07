@@ -11,6 +11,7 @@ import { StyledForm } from '../../../styles/form';
 import { RegisterFormSchema } from './RegisterFormSchema';
 import { UserContext } from '../../../providers/UserContext';
 import { StyledParagraph } from '../../../styles/typograthy';
+import { DialogTitle } from '@mui/material';
 
 export interface IRegisterForm {
   name: string;
@@ -37,7 +38,7 @@ const RegisterForm = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(createUser)}>
-      <h1>Crie sua conta para acessar a plataforma</h1>
+      <DialogTitle className='form-title'>Crie sua conta para acessar a plataforma</DialogTitle>
       <Input
         type='text'
         error={errors.name}
@@ -82,7 +83,7 @@ const RegisterForm = () => {
       
 
       <Link className='linkToLogin' to={'/login'}>
-        <StyledParagraph  $fontColor='greyBold'>
+        <StyledParagraph className='link' $fontColor='greyBold'>
           Já tem uma conta? Clique aqui
         </StyledParagraph>
       </Link>

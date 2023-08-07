@@ -10,7 +10,7 @@ import { StyledParagraph } from "../../../styles/typograthy";
 import Input from "../Input";
 import { LoginFormSchema } from "./LoginFormSchema";
 import { ILoginFormValue } from "./types";
-import { Button } from "@mui/material";
+import { Button, DialogTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -35,6 +35,7 @@ const LoginForm = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(submit)}>
+      <DialogTitle className="form-title">Faça o Login</DialogTitle>
       <Input
         label="Usuario"
         type="text"

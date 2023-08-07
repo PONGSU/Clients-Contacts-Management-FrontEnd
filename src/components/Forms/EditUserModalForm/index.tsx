@@ -14,6 +14,7 @@ import Input from "../Input";
 import { StyledButton } from "../../../styles/button";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { ConfirmToast } from "react-confirm-toast";
+import { DialogContentText } from "@mui/material";
 
 interface IEditUserFormDialogProps {
   open: boolean;
@@ -52,12 +53,12 @@ export default function EditUserFormDialog({
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Editar
+      <Button color="inherit" variant="outlined" onClick={handleClickOpen}>
+        Editar seus dados
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Editar dados do cliente</DialogTitle>
-        <h5>Preencha somente os campos que deseja alterar</h5>
+        <DialogContentText className="form-subtitle">Preencha somente os campos que deseja alterar</DialogContentText>
         <DialogContent>
           <StyledForm onSubmit={handleSubmit(editUser)}>
             <Input
