@@ -1,5 +1,8 @@
 Está aplicação depende da API https://github.com/PONGSU/Clients-Contacts-Management-Backend
 
+Existe um deploy dessa aplicação em https://clients-contacts.vercel.app
+(o deploy está temporariamente dependente que a API citada a cima esteja rodando EXATAMENTE em: 127.0.0.1:8000) 
+
 Depois de fazer a cópia desse repositório é preciso instalar as bibliotecas necessarias utilizando o comanodo:
 yarn install
 
