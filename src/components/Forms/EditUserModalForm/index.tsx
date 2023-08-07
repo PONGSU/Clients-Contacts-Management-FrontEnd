@@ -58,7 +58,9 @@ export default function EditUserFormDialog({
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Editar dados do cliente</DialogTitle>
-        <DialogContentText className="form-subtitle">Preencha somente os campos que deseja alterar</DialogContentText>
+        <DialogContentText className="form-subtitle">
+          Preencha somente os campos que deseja alterar
+        </DialogContentText>
         <DialogContent>
           <StyledForm onSubmit={handleSubmit(editUser)}>
             <Input

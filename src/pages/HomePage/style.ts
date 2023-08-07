@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledHomePage = styled.main`
   display: flex;
@@ -11,27 +11,26 @@ export const StyledHomePage = styled.main`
   border-radius: 20px;
   padding: 40px;
 
-  header{
+  header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
-    h1{
+    h1 {
       color: ${({ theme }) => theme.colors.primary};
     }
-    button{
+    button {
       margin: -50px -30px 0 0;
       display: flex;
       gap: 13px;
     }
-    svg{
+    svg {
       font-size: 30px;
     }
   }
 
-
   .user-info {
     display: flex;
-    flex-direction: column;  
+    flex-direction: column;
     background: ${({ theme }) => theme.colors.primary};
     border-radius: 20px;
     padding: 13px;
@@ -39,18 +38,18 @@ export const StyledHomePage = styled.main`
     color: ${({ theme }) => theme.colors.grey00};
     gap: 7px;
     position: relative;
-    
-    span{
+
+    span {
       display: flex;
       justify-content: space-between;
       padding: 0 13px;
     }
-    
-    h4{
+
+    h4 {
       margin-left: 7px;
     }
-    
-    .btn-create-ctt{
+
+    .btn-create-ctt {
       position: absolute;
       right: 25px;
       margin-top: -40px;
@@ -58,19 +57,19 @@ export const StyledHomePage = styled.main`
     }
   }
 
-  .contact-subtitle{    
+  .contact-subtitle {
     color: ${({ theme }) => theme.colors.primary};
     margin-bottom: 30px;
   }
 
-  ul{
+  ul {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 27px;
   }
 
-  .contact-card{
+  .contact-card {
     display: flex;
     justify-content: space-between;
     width: 470px;
@@ -78,13 +77,12 @@ export const StyledHomePage = styled.main`
     border-radius: 20px;
     color: ${({ theme }) => theme.colors.grey00};
     background-color: ${({ theme }) => theme.colors.primary};
-    span{
+    span {
       display: flex;
       flex-direction: column;
-      gap: 7px
+      gap: 7px;
     }
   }
-
 
   @media (max-width: 1400px) {
     .form-section {
