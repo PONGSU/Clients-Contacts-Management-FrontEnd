@@ -32,7 +32,7 @@ export default function EditUserFormDialog({
   open,
   setOpen,
 }: IEditUserFormDialogProps) {
-  const { editUser, loading, deleteUser } = useContext(UserContext);
+  const { editUser, loading, deleteUser, user } = useContext(UserContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,7 +48,7 @@ export default function EditUserFormDialog({
     formState: { errors },
   } = useForm<IEditUserForm>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: yupResolver(EditUserFormSchema as any),
+    resolver: yupResolver(EditUserFormSchema as any), defaultValues: { name: user?.name, email: user?.email, username: user?.username, phone: user?.phone }
   });
 
   return (
