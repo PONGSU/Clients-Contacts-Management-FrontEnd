@@ -28,7 +28,7 @@ export interface IUser {
   email: string;
   phone: string;
   is_admin?: boolean;
-  date_joined?: string | Date;
+  created_at?: Date;
   username?: string;
   contacts: IContact[];
 }
@@ -38,6 +38,7 @@ export interface IContact {
   email: string;
   name: string;
   phone: string;
+  created_at: Date;
 }
 
 export interface ILoginFormValue {

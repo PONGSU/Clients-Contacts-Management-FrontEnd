@@ -23,6 +23,7 @@ const HomePage = () => {
         </Button>
       </header>
       <div className="user-info">
+        
         <span>
           <h2>Aqui estão seus dados:</h2>
           <EditUserFormDialog open={openUserEdit} setOpen={setOpenUserEdit} />
@@ -30,6 +31,7 @@ const HomePage = () => {
         <h4>Email: {user?.email}</h4>
         <h4>Telefone: {user?.phone}</h4>
         <h4>Username: {user?.username}</h4>
+        <h4>Registrado em: {user?.created_at ? new Date(user?.created_at).toLocaleDateString("pt-BR") : "null"}</h4>
         <CreateContactFormDialog
           open={openContactCreate}
           setOpen={setOpenContactCreate}
@@ -46,6 +48,7 @@ const HomePage = () => {
                   <h4>Nome: {contact.name}</h4>
                   <h4>Telefone: {contact.phone}</h4>
                   <h4>Email: {contact.email}</h4>
+                  <h4>Registrado em: {contact?.created_at ? new Date(contact?.created_at).toLocaleDateString("pt-BR") : "null"}</h4>
                 </span>
                 <EditContactFormDialog
                   open={openContactEdit}
